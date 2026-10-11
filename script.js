@@ -1,27 +1,28 @@
 /* ============================================================================
- * LOCATION-SHARING SOCIAL DISCONNECTION PARADIGM
- * Condition: EXCLUSION — G and M diverge (total ~65s)
+- LOCATION-SHARING SOCIAL DISCONNECTION PARADIGM
+- Condition: EXCLUSION — G and M diverge (total ~65s)
  *
- * ── MOVEMENT TABLE (global seconds) ────────────────────────────────────────
- *  t         G                         M
- *  0– 2    pause                     pause
- *  2– 8    straight BG               deviate EAST
- *  8–11    PAUSE (3s)                straight BM
- * 11–12    straight BG               PAUSE (1s)
- * 12–18    deviate EAST              straight BM
- * 18–20    straight BG               PAUSE (2s)
- * 20–26    straight BG               deviate WEST (342°)
- * 26–28    PAUSE (2s)                straight BM
- * 28–30    straight BG               PAUSE (2s)
- * 30–36    deviate WEST              straight BM
- * 36–38    straight BG               PAUSE (2s)
- * 38–44    straight BG               deviate EAST
- * 44–48    PAUSE (4s)                straight BM
- * 48–50    straight BG               PAUSE (2s)
- * 50–53    deviate EAST              deviate WEST
- * 53–56    deviate WEST              deviate EAST
- * 56–62    straight BG               straight BM
- * ========================================================================== */
+- ── MOVEMENT TABLE (global seconds) ────────────────────────────────────────
+-  t         G                         M
+-  0– 2    pause                     pause
+-  2– 8    straight BG               deviate EAST
+-  8–11    PAUSE (3s)                straight BM
+- 11–12    straight BG               PAUSE (1s)
+- 12–18    deviate EAST              straight BM
+- 18–20    straight BG               PAUSE (2s)
+- 20–26    straight BG               deviate WEST (342°)
+- 26–28    PAUSE (2s)                straight BM
+- 28–30    straight BG               PAUSE (2s)
+- 30–36    deviate WEST              straight BM
+- 36–38    straight BG               PAUSE (2s)
+- 38–44    straight BG               deviate EAST
+- 44–48    PAUSE (4s)                straight BM
+- 48–50    straight BG               PAUSE (2s)
+- 50–53    deviate EAST              deviate WEST
+- 53–56    deviate WEST              deviate EAST
+- 56–60    straight BG               straight BM
+- 60–62    PAUSE (2s)                PAUSE (2s)
+- ========================================================================== */
 
 const CONDITION         = "EXCLUSION";
 const CONDITION_LABEL = "Exclusion Condition";
@@ -41,7 +42,7 @@ function calculateBearing(start, end) {
     const dLng = r(end[0] - start[0]);
     const y = Math.sin(dLng) * Math.cos(r(end[1]));
     const x = Math.cos(r(start[1])) * Math.sin(r(end[1]))
-            - Math.sin(r(start[1])) * Math.cos(r(end[1])) * Math.cos(dLng);
+- Math.sin(r(start[1])) * Math.cos(r(end[1])) * Math.cos(dLng);
     return (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
 }
 
@@ -113,7 +114,8 @@ const SCHEDULE_G = [
     { d: 2,  b: BG },                      // global 48–50  straight BG
     ...buildPureDrift(3, EAST),            // global 50–53  deviate EAST
     ...buildPureDrift(3, WEST),            // global 53–56  deviate WEST
-    { d: 6,  b: BG },                      // global 56–62  straight BG
+    { d: 4,  b: BG },                      // global 56–60  straight BG
+    { d: 2,  b: null },                    // global 60–62  PAUSE (2s)
 ];
 
 const SCHEDULE_M = [
@@ -133,7 +135,8 @@ const SCHEDULE_M = [
     { d: 2,  b: null },                    // global 48–50  PAUSE (2s)
     ...buildPureDrift(3, WEST),            // global 50–53  deviate WEST
     ...buildPureDrift(3, EAST),            // global 53–56  deviate EAST
-    { d: 6,  b: BM },                      // global 56–62  straight BM
+    { d: 4,  b: BM },                      // global 56–60  straight BM
+    { d: 2,  b: null },                    // global 60–62  PAUSE (2s)
 ];
 
 // ── Runtime ───────────────────────────────────────────────────────────────────
